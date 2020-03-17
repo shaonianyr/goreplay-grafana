@@ -11,6 +11,12 @@ goreplay 要想把数据传到到 es 里面，需要回放的时候才能使用�
 * logstash
 * grafana
 
+## 快速体验
+
+```
+docker-compose up -d
+```
+
 ## grafana dashboard
 
 ```
