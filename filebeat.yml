@@ -1,0 +1,18 @@
+filebeat.inputs:
+- type: log
+  enabled: true
+  paths:
+    - /usr/share/filebeat/gorlogs/*.log
+  multiline.pattern: '🐵🙈🙉'    
+  multiline.negate: true
+  multiline.match: after
+  tags: ["gorlogs"]
+
+- type: log
+  enabled: true
+  paths:
+    - /usr/share/filebeat/logs/*.log
+  tags: ["normallogs"]
+
+output.logstash:
+  hosts: ["localhost:5044"]

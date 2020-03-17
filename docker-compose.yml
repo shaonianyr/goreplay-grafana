@@ -1,0 +1,64 @@
+version: "2"
+services:
+
+  # es-master:
+  #   image: elasticsearch:6.5.1
+  #   network_mode: host
+  #   ports:
+  #     - "9200:9200"
+  #     - "9300:9300"
+  #   volumes:
+  #     - ./es-cluster/es-master/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  #   environment:
+  #     - "ES_JAVA_OPTS=-Xms500m -Xmx500m"
+
+  # es-1:
+  #   image: elasticsearch:6.5.1
+  #   network_mode: host
+  #   volumes:
+  #     - ./es-cluster/es-1/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  #   environment:
+  #     - "ES_JAVA_OPTS=-Xms500m -Xmx500m"
+
+  # es-2:
+  #   image: elasticsearch:6.5.1
+  #   network_mode: host
+  #   volumes:
+  #     - ./es-cluster/es-2/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+  #   environment:
+  #     - "ES_JAVA_OPTS=-Xms500m -Xmx500m"
+
+  elasticsearch:
+    image: elasticsearch:6.5.1
+    network_mode: host
+    ports:
+      - "9200:9200"
+      - "9300:9300"
+    volumes:
+      - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+    environment:
+      - "ES_JAVA_OPTS=-Xms500m -Xmx500m"
+
+  filebeat:
+    image: elastic/filebeat:6.5.1
+    network_mode: host
+    volumes:
+      - ./logs/logs1:/usr/share/filebeat/gorlogs/
+      - ./logs/logs2:/usr/share/filebeat/logs/
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml
+
+  logstash:
+    image: elastic/logstash:6.5.1
+    network_mode: host
+    ports:
+      - "5044:5044"
+    volumes:
+      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3000:3000"
+    volumes:
+      - /etc/localtime:/etc/localtime
+      - ./grafana/data:/var/lib/grafana
