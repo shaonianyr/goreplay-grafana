@@ -4,6 +4,8 @@ goreplay 要想把数据传到到 es 里面，需要回放的时候才能使用�
 
 欢迎来 star ~
 
+技术交流 QQ 群: 552643038
+
 ## 技术方案
 * goreplay
 * elasticsearch
